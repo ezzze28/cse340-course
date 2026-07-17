@@ -288,3 +288,47 @@ color: var(--text-muted);
 font-size: 0.9rem;
 margin: 0 auto;
 }
+
+/* STREAMING_CHUNK:Adding Responsive Media Queries... /
+/ ==========================================================================
+DISEÑO RESPONSIVO (Mobile First & Media Queries)
+========================================================================== */
+
+@media (max-width: 768px) {
+/* Ajustes para la barra de navegación en móviles */
+nav {
+padding: 1rem 0.5rem;
+}
+
+nav ul {
+    justify-content: center; /* Centra los elementos */
+    gap: 1rem; /* Reduce el espacio entre links */
+    flex-wrap: wrap; /* Permite que los links bajen de línea si no caben */
+}
+
+nav a {
+    font-size: 0.85rem; /* Un poco más pequeño para que quepan mejor */
+}
+
+/* Ajustes para los textos principales */
+h1 {
+    font-size: 2.2rem; /* Títulos más pequeños en celular */
+    line-height: 1.1;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+/* Ajustes para el contenedor principal */
+main {
+    padding: 2rem 1.25rem;
+}
+
+/* Asegurar que las grillas pasen a 1 sola columna en celulares pequeños */
+.categories-grid, main ul {
+    grid-template-columns: 1fr;
+}
+
+
+}
