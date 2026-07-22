@@ -3,12 +3,18 @@
     <main>
         <h1><%= title %></h1>
 
-        <h2>Upcoming Service Projects</h2>
-        <ul>
-            <li>Park Cleanup - Join us to clean up local parks and make them beautiful!</li>
-            <li>Food Drive - Help collect and distribute food to those in need.</li>
-            <li>Community Tutoring - Volunteer to tutor students in various subjects.</li>
-        </ul>
+        <p>Explore our upcoming service projects and join us in making a difference:</p>
+                
+                <ul class="projects-list">
+                    <% projects.forEach(project => { %>
+                        <li>
+                            <strong><%= new Date(project.date).toLocaleDateString() %></strong> 
+                            <%= project.title %> (<%= project.organization_name %>)
+                            <p><%= project.description %></p>
+                            <small>Location: <%= project.location %></small>
+                        </li>
+                    <% }) %>
+                </ul>
 
     </main>
 
