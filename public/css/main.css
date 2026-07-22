@@ -41,6 +41,7 @@ max-width: 1000px;
 width: 100%;
 margin: 0 auto;
 padding: 3rem 1.5rem;
+margin-bottom: 3rem;
 }
 
 /* STREAMING_CHUNK:Styling Navigation Bar... /
@@ -144,6 +145,7 @@ grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 gap: 1.5rem;
 list-style: none;
 margin-top: 2rem;
+margin-bottom: 2rem;
 }
 
 main li {
