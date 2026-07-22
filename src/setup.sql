@@ -1,19 +1,42 @@
-CREATE TABLE organization (
-  organization_id SERIAL PRIMARY KEY,
-  name VARCHAR(150) NOT NULL,
-  description TEXT NOT NULL,
-  contact_email VARCHAR(255) NOT NULL,
-  logo_filename VARCHAR(255) NOT NULL
+CREATE TABLE IF NOT EXISTS organization (
+    organization_id SERIAL PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    description TEXT NOT NULL,
+    contact_email VARCHAR(255) NOT NULL,
+    logo_filename VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE projects (
-  project_id SERIAL PRIMARY KEY,
-  organization_id INT NOT NULL,
-  title VARCHAR(150) NOT NULL,
-  description TEXT,
-  location VARCHAR(100),
-  date DATE,
-  FOREIGN KEY (organization_id) REFERENCES organization(organization_id)
+CREATE TABLE IF NOT EXISTS projects (
+    project_id SERIAL PRIMARY KEY,
+    organization_id INT NOT NULL,
+    title VARCHAR(150) NOT NULL,
+    description TEXT,
+    location VARCHAR(100),
+    date DATE,
+    CONSTRAINT fk_organization 
+        FOREIGN KEY (organization_id) 
+        REFERENCES organization(organization_id) 
+        ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS categories (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS project_categories (
+    project_id INT NOT NULL,
+    category_id INT NOT NULL,
+    CONSTRAINT pk_project_categories 
+        PRIMARY KEY (project_id, category_id),
+    CONSTRAINT fk_project 
+        FOREIGN KEY (project_id) 
+        REFERENCES projects(project_id) 
+        ON DELETE CASCADE,
+    CONSTRAINT fk_category 
+        FOREIGN KEY (category_id) 
+        REFERENCES categories(category_id) 
+        ON DELETE CASCADE
 );
 
 INSERT INTO organization (name, description, contact_email, logo_filename) VALUES 
@@ -22,37 +45,21 @@ INSERT INTO organization (name, description, contact_email, logo_filename) VALUE
 ('UnityServe Volunteers', 'A volunteer coordination group supporting local charities and service initiatives.', 'hello@unityserve.org', 'unityserve-logo.png');
 
 INSERT INTO projects (organization_id, title, description, location, date) VALUES 
--- BrightFuture Builders (ID 1)
 (1, 'Community Center Roof Repair', 'Repairing the roof and insulating the community center for the upcoming winter.', 'Montevideo Center', '2026-04-10'),
 (1, 'Sustainable Playground Build', 'Building a new eco-friendly playground using recycled materials.', 'Park Batlle', '2026-05-15'),
 (1, 'Green Housing Insulation Workshop', 'Teaching families how to properly insulate their homes to save energy.', 'Pocitos', '2026-06-05'),
 (1, 'Rainwater Harvesting System Setup', 'Installing water collection systems for local community gardens.', 'Sayago', '2026-07-20'),
 (1, 'Solar Panel Installation Drive', 'Helping install small-scale solar arrays on community buildings.', 'Malvín', '2026-08-12'),
-
--- Green Harvest Growers (ID 2)
 (2, 'Urban Garden Composting Workshop', 'Learning advanced composting techniques for urban spaces.', 'Centro', '2026-04-18'),
 (2, 'School Vegetable Garden Planting', 'Planting organic vegetables with elementary school students.', 'Prado', '2026-05-22'),
 (2, 'Seed Saving and Exchange Fair', 'A community event to share heirloom seeds and farming knowledge.', 'Buceo', '2026-06-14'),
 (2, 'Vertical Gardening Installation', 'Setting up vertical planters for small balconies in apartment complexes.', 'Tres Cruces', '2026-07-08'),
 (2, 'Organic Pest Control Seminar', 'Educating local growers on natural and safe pest management.', 'Carrasco', '2026-08-25'),
-
--- UnityServe Volunteers (ID 3)
 (3, 'Food Bank Supply Sorting', 'Sorting and packing non-perishable food items for local families in need.', 'Union', '2026-04-05'),
 (3, 'Winter Clothing Drive', 'Collecting and distributing coats, blankets, and warm clothes.', 'Centro', '2026-05-10'),
 (3, 'Elderly Care Center Recreation Day', 'Spending the day playing board games and sharing stories with seniors.', 'Malvín', '2026-06-20'),
 (3, 'Neighborhood Cleanup Initiative', 'Picking up litter and cleaning public spaces around the neighborhood.', 'Punta Carretas', '2026-07-15'),
 (3, 'Back-to-School Supply Packing', 'Assembling backpacks filled with school supplies for children.', 'Sayago', '2026-08-01');
-
-CREATE TABLE IF NOT EXISTS categories (
-    category_id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL UNIQUE
-);
-
-CREATE TABLE IF NOT EXISTS project_categories (
-    project_id INT REFERENCES projects(project_id) ON DELETE CASCADE,
-    category_id INT REFERENCES categories(category_id) ON DELETE CASCADE,
-    PRIMARY KEY (project_id, category_id)
-);
 
 INSERT INTO categories (name) VALUES 
 ('Environment'),
@@ -60,18 +67,18 @@ INSERT INTO categories (name) VALUES
 ('Education');
 
 INSERT INTO project_categories (project_id, category_id) VALUES 
-(1, 2), -- Community Center Roof Repair -> Community Support
-(2, 1), -- Sustainable Playground Build -> Environment
-(3, 3), -- Green Housing Insulation Workshop -> Education
-(4, 1), -- Rainwater Harvesting System Setup -> Environment
-(5, 1), -- Solar Panel Installation Drive -> Environment
-(6, 1), -- Urban Garden Composting Workshop -> Environment
-(7, 3), -- School Vegetable Garden Planting -> Education
-(8, 1), -- Seed Saving and Exchange Fair -> Environment
-(9, 2), -- Vertical Gardening Installation -> Community Support
-(10, 3), -- Organic Pest Control Seminar -> Education
-(11, 2), -- Food Bank Supply Sorting -> Community Support
-(12, 2), -- Winter Clothing Drive -> Community Support
-(13, 2), -- Elderly Care Center Recreation Day -> Community Support
-(14, 1), -- Neighborhood Cleanup Initiative -> Environment
-(15, 3); -- Back-to-School Supply Packing -> Education
+(1, 2), 
+(2, 1), 
+(3, 3), 
+(4, 1), 
+(5, 1), 
+(6, 1), 
+(7, 3), 
+(8, 1), 
+(9, 2), 
+(10, 3), 
+(11, 2), 
+(12, 2), 
+(13, 2), 
+(14, 1), 
+(15, 3);
