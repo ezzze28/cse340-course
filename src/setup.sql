@@ -42,3 +42,36 @@ INSERT INTO projects (organization_id, title, description, location, date) VALUE
 (3, 'Elderly Care Center Recreation Day', 'Spending the day playing board games and sharing stories with seniors.', 'Malvín', '2026-06-20'),
 (3, 'Neighborhood Cleanup Initiative', 'Picking up litter and cleaning public spaces around the neighborhood.', 'Punta Carretas', '2026-07-15'),
 (3, 'Back-to-School Supply Packing', 'Assembling backpacks filled with school supplies for children.', 'Sayago', '2026-08-01');
+
+CREATE TABLE IF NOT EXISTS categories (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS project_categories (
+    project_id INT REFERENCES projects(project_id) ON DELETE CASCADE,
+    category_id INT REFERENCES categories(category_id) ON DELETE CASCADE,
+    PRIMARY KEY (project_id, category_id)
+);
+
+INSERT INTO categories (name) VALUES 
+('Environment'),
+('Community Support'),
+('Education');
+
+INSERT INTO project_categories (project_id, category_id) VALUES 
+(1, 2), -- Community Center Roof Repair -> Community Support
+(2, 1), -- Sustainable Playground Build -> Environment
+(3, 3), -- Green Housing Insulation Workshop -> Education
+(4, 1), -- Rainwater Harvesting System Setup -> Environment
+(5, 1), -- Solar Panel Installation Drive -> Environment
+(6, 1), -- Urban Garden Composting Workshop -> Environment
+(7, 3), -- School Vegetable Garden Planting -> Education
+(8, 1), -- Seed Saving and Exchange Fair -> Environment
+(9, 2), -- Vertical Gardening Installation -> Community Support
+(10, 3), -- Organic Pest Control Seminar -> Education
+(11, 2), -- Food Bank Supply Sorting -> Community Support
+(12, 2), -- Winter Clothing Drive -> Community Support
+(13, 2), -- Elderly Care Center Recreation Day -> Community Support
+(14, 1), -- Neighborhood Cleanup Initiative -> Environment
+(15, 3); -- Back-to-School Supply Packing -> Education

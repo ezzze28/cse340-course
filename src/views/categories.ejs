@@ -3,48 +3,14 @@
     <main>
         <h1><%= title %></h1>
 
-                <p class="subtitle">Explore active areas of community contribution and find where your skills can shine.</p>
+        <p class="subtitle">Explore our service projects categories:</p>
 
-        <!-- Cuadrícula de marcadores de posición (Placeholders) listos para conectar con tu DB -->
-        <div class="categories-grid">
-            
-            <div class="category-card">
-                <div class="category-icon">🌱</div>
-                <h3>Environmental</h3>
-                <p>Support community gardens, cleanups, tree plantings, and local sustainability actions.</p>
-            </div>
-
-            <div class="category-card">
-                <div class="category-icon">📚</div>
-                <h3>Education & Tutoring</h3>
-                <p>Empower youth and adult learners through mentoring, reading programs, and tech training.</p>
-            </div>
-
-            <div class="category-card">
-                <div class="category-icon">❤️</div>
-                <h3>Community Health</h3>
-                <p>Assist local clinics, support blood drives, and promote wellness workshops for all.</p>
-            </div>
-
-            <div class="category-card">
-                <div class="category-icon">🥫</div>
-                <h3>Food Distribution</h3>
-                <p>Help package, sort, or deliver food with local food pantries and community kitchens.</p>
-            </div>
-
-            <div class="category-card">
-                <div class="category-icon">🛠️</div>
-                <h3>Community Repair</h3>
-                <p>Revitalize homes, parks, and shared community spaces with hands-on building projects.</p>
-            </div>
-
-            <div class="category-card">
-                <div class="category-icon">🐾</div>
-                <h3>Animal Welfare</h3>
-                <p>Support local shelters, assist foster networks, and care for animals waiting for homes.</p>
-            </div>
-
-        </div>
+        <ul>
+            <% categories.forEach(category => { %>
+                <li><strong><%= category.name %></strong></li>
+            <% }) %>
+        </ul
+        
     </main>
 
 <%- include('partials/footer') %>
